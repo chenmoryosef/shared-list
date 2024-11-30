@@ -1,6 +1,10 @@
 export interface IItem {
-  id: number;
-  name: string;
-  description: string;
-  timestamp: number;
+  readonly id: number;
+  readonly name: string;
+  readonly description?: string;
+  readonly creationTimestamp: number;
+  readonly lastModificationTimestamp: number;
+
+  setName(name: string): void;
+  setDescription(description: string): void;
 }
