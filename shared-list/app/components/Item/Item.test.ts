@@ -1,7 +1,7 @@
 import { IItem } from './IItem';
 import Item from './Item';
 
-describe('IItem', () => {
+describe('Tests for Item class', () => {
   let item: IItem;
   const itemName = 'test item';
   const itemDescription = 'test description';
