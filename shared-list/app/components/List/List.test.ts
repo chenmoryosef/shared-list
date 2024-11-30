@@ -43,4 +43,13 @@ describe('Tests for List class', () => {
     expect(list.items.length).toBe(1);
     expect(list.items[0].name).toBe('new name');
   });
+
+  test('should clone the list', () => {
+    const item = new Item(itemName, itemDescription);
+    list.add(item);
+    const clonedList = list.clone();
+    expect(list.items.length).toBe(clonedList.items.length);
+    expect(clonedList.items[0].name).toBe(list.items[0].name);
+    expect(clonedList).not.toBe(list);
+  });
 });

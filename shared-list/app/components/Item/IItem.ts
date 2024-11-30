@@ -7,4 +7,5 @@ export interface IItem {
 
   setName(name: string): void;
   setDescription(description: string): void;
+  clone(): IItem;
 }

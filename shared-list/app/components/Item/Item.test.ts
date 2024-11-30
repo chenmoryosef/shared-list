@@ -24,4 +24,13 @@ describe('Tests for Item class', () => {
     expect(item.name).toBe(updatedItemName);
     expect(item.description).toBe(updatedItemDescription);
   });
+
+  test('should clone the item', () => {
+    const clonedItem = item.clone();
+    expect(clonedItem).not.toBe(item);
+    expect(clonedItem.name).toBe(item.name);
+    expect(clonedItem.description).toBe(item.description);
+    item.setName('new name');
+    expect(clonedItem.name).not.toBe(item.name);
+  });
 });

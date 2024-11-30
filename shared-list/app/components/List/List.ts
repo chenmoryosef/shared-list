@@ -34,4 +34,10 @@ export class List implements IList {
       if (description) this.items[index].setDescription(description);
     }
   }
+
+  clone(): IList {
+    const list = new List(this.name);
+    this.items.forEach((item) => list.add(item.clone()));
+    return list;
+  }
 }
