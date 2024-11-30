@@ -3,13 +3,22 @@ import { List } from '../List/List';
 import { IListsManager, ListsInfo, ListEntity } from './IListsManager';
 
 export default class ListsManager implements IListsManager {
+  private static instance: ListsManager;
   lists: ListsInfo;
 
-  constructor() {
+  private constructor() {
     this.lists = new Map();
   }
 
+  static getInstance(): ListsManager {
+    if (!ListsManager.instance) {
+      ListsManager.instance = new ListsManager();
+    }
+    return ListsManager.instance;
+  }
+
   createList(name?: string): number {
+    if (!name) name = 'List';
     const list = new List(name);
     this.lists.set(list.id, [list, false]);
     return list.id;
