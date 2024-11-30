@@ -9,4 +9,5 @@ export interface IList {
   add(item: IItem): void;
   remove(item: IItem): void;
   modify(item: IItem, name?: string, description?: string): void;
+  clone(): IList;
 }
