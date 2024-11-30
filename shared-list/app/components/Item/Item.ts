@@ -32,4 +32,8 @@ export default class Item implements IItem {
     this.description = description;
     this.updateTimestamp();
   }
+
+  clone(): IItem {
+    return new Item(this.name, this.description);
+  }
 }
