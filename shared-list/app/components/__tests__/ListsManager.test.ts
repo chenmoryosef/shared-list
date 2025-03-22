@@ -1,4 +1,4 @@
-import ListsManager from './ListsManager';
+import ListsManager from '../ListsManager/ListsManager';
 import { List } from '../List/List';
 
 describe('Tests for ListsManager class', () => {
