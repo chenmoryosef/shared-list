@@ -1,5 +1,5 @@
-import { IList } from './IList';
-import { List } from './List';
+import { IList } from '../List/IList';
+import { List } from '../List/List';
 import Item from '../Item/Item';
 
 describe('Tests for List class', () => {

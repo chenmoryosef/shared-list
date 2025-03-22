@@ -1,5 +1,5 @@
-import { IItem } from './IItem';
-import Item from './Item';
+import { IItem } from '../Item/IItem';
+import Item from '../Item/Item';
 
 describe('Tests for Item class', () => {
   let item: IItem;

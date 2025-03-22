@@ -1,18 +1,22 @@
 import { IItem } from './IItem';
 
 export default class Item implements IItem {
-  id: number;
-  name: string;
-  description: string;
-  creationTimestamp: number;
-  lastModificationTimestamp: number;
+  private id: number;
+  private name: string;
+  private description?: string;
+  private creationTimestamp: number;
+  private lastModificationTimestamp: number;
 
-  constructor(name: string, description: string) {
+  constructor(name: string, description?: string) {
     this.id = this.generateId();
     this.name = name;
-    this.description = description;
+    this.description = description ?? '';
     this.creationTimestamp = Date.now();
     this.lastModificationTimestamp = Date.now();
+  }
+
+  getName(): string {
+    return this.name;
   }
 
   private generateId(): number {
