@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { View, Text, FlatList, StyleSheet, Button } from 'react-native';
 import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
 import ListsManager from '../components/ListsManager/ListsManager';
 import { IList } from '../components/List/IList';
@@ -31,19 +31,10 @@ export default function ListPage() {
       <Text style={styles.title}>{list.name}</Text>
       <FlatList
         data={list.items}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => <Text style={styles.listItem}>{item.name}</Text>}
+        renderItem={({ item }) => <Text style={styles.listItem}>{item.getName()}</Text>}
       />
 
-    <Text
-      style={{ color: '#ffd33d', marginTop: 20, textAlign: 'center' }}
-      onPress={() => {
-        // Navigate to edit page
-        router.navigate(`/edit-list/${list.id}`);
-      }}
-    >
-      Edit List
-    </Text>
+    <Button title="Edit List" onPress={() => router.replace(`/edit-list/${list.id}`)} color="#2196F3" />
 
     </View>
 
