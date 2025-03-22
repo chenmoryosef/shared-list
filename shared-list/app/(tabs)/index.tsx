@@ -1,22 +1,42 @@
-import { Text, View, StyleSheet } from 'react-native';
-import { Link } from 'expo-router';
-import { List } from '../components/List/List';
+import { Text, View, StyleSheet, Button, TextInput } from 'react-native';
+import { Link, useRouter } from 'expo-router';
 import ListsManager from '../components/ListsManager/ListsManager'; // Import ListsManager
+import { useRef, useState } from 'react';
 
 export default function Index() {
-  const lists = Array.from(ListsManager.getInstance().lists);
-  
+  const listManager = ListsManager.getInstance();
+  const router = useRouter();
+  const inputRef = useRef<TextInput>(null); // Create a ref for TextInput
+  let [listNameInput] = useState('');
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>My Lists:</Text>
-      {lists.map(([id, [list, done]]) => (
-        <Link key={id} href={`/list/${id}`} style={styles.text}>
-          {list.name} {done ? '✅' : ''}
-        </Link>
-      ))}
-      <Link href="/create-new-list" style={styles.button}>
-        Create a new list
+      {
+      Array.from(listManager.lists).map(([id, [list, done]]) => (
+      console.log(id, list, done),
+      <Link key={id} href={`/list/${id}`} style={styles.text}>
+        {list.name} {done ? '✅' : ''}
       </Link>
+      ))}
+
+      <TextInput
+      ref={inputRef} // Attach ref to TextInput
+      style={styles.input}
+      placeholder="Enter list name"
+      placeholderTextColor="#aaa"
+      onChangeText={(text) => { listNameInput = text }}
+      />
+      <Button
+      title="Create List"
+      onPress={() => {
+        const listName = listNameInput ?? 'New list';
+        listManager.createList(listName);
+        inputRef.current?.clear(); // Clear input
+        listNameInput = '';
+        router.navigate('/create-new-list')        
+      }}
+      />
     </View>
   );
 }
@@ -40,4 +60,11 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
     color: '#fff',
   },
+  input: {
+    height: 40,
+    width: 200,
+    borderColor: 'gray',
+    borderWidth: 1,
+    color: '#fff',
+  }
 });

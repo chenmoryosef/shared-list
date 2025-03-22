@@ -1,0 +1,21 @@
+import { Text, View, StyleSheet } from 'react-native';
+
+export default function CreateNewList() {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>Shared List helps you be more organized, contorl all your lists and even be able to share them with others.</Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#25292e',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    color: '#fff',
+  },
+});
