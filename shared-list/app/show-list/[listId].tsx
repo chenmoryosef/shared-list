@@ -1,13 +1,22 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
 import ListsManager from '../components/ListsManager/ListsManager';
+import { IList } from '../components/List/IList';
 
 export default function ListPage() {
   const router = useRouter();
-  const { listId } = useLocalSearchParams(); // Get list ID from URL params
-  const parsedListId = Number(listId);
-  const list = ListsManager.getInstance().getList(parsedListId); // Get list by ID
+  const { listId } = useLocalSearchParams();
+  const [list, setList] = useState<IList | null>(null);
+
+  useFocusEffect(
+    useCallback(() => {
+      const parsedListId = Number(listId);
+      const fetchedList = ListsManager.getInstance().getList(parsedListId);
+      setList(fetchedList);
+    }, [listId])
+  );
+
 
   if (!list) {
     return (

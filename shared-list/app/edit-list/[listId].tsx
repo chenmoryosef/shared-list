@@ -1,25 +1,26 @@
-import { router, useLocalSearchParams, useNavigation } from 'expo-router';
-import React, { useState, useEffect } from 'react';
+import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Text, View, StyleSheet, TextInput, Button, FlatList } from 'react-native';
 import ListsManager from '../components/ListsManager/ListsManager';
 import Item from '../components/Item/Item';
-import { IItem } from '../components/Item/IItem';
+import { IList } from '../components/List/IList';
 
-export default function CreateNewList() {
+export default function EditList() {
   const { listId } = useLocalSearchParams();
-  const parsedListId = Number(listId);
-  const listManager = ListsManager.getInstance();
-  const list = listManager.getList(parsedListId);
-
-  // Redirect to home if list is not found
-  useEffect(() => {
-    if (!list) {
-      router.replace('/'); // Redirect without adding to navigation stack
-    }
-  }, [list]);
-
-  const [listItems, setListItems] = useState<Array<IItem | string>>([]);
+  const [listItems, setListItems] = useState<Array<String>>([]);
   const [newItem, setNewItem] = useState('');
+  const [list, setList] = useState<IList | null>(null);
+
+  useFocusEffect(
+    useCallback(() => {
+      const parsedListId = Number(listId);
+      const fetchedList = ListsManager.getInstance().getList(parsedListId);
+      if (fetchedList) {
+        setList(fetchedList);
+        setListItems(fetchedList.items.map((item) => {return item.getName()}) || []);
+      }
+    }, [listId])
+  );
 
   const addItem = () => {
     if (newItem.trim()) {

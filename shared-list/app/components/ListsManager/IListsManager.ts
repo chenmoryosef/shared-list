@@ -8,6 +8,6 @@ export interface IListsManager {
 
   createList(name?: string): number;
   markListDone(id: number): void;
-  getList(id: number): IList | undefined;
+  getList(id: number): IList | null;
   getListCopy(id: number): IList;
 }
