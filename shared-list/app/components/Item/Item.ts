@@ -7,10 +7,10 @@ export default class Item implements IItem {
   creationTimestamp: number;
   lastModificationTimestamp: number;
 
-  constructor(name: string, description: string) {
+  constructor(name: string, description?: string) {
     this.id = this.generateId();
     this.name = name;
-    this.description = description;
+    this.description = description ?? '';
     this.creationTimestamp = Date.now();
     this.lastModificationTimestamp = Date.now();
   }

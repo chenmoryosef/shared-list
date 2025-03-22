@@ -33,6 +33,14 @@ export default class ListsManager implements IListsManager {
     }
   }
 
+  getList(id: number): IList | undefined {
+    const listEntity = this.lists.get(id);
+    if (listEntity) {
+      return listEntity[0];
+    }
+    return undefined;
+  }
+
   getListCopy(id: number): IList {
     const listEntity = this.lists.get(id);
     if (listEntity) {

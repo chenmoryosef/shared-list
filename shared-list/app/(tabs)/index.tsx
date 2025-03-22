@@ -1,20 +1,28 @@
 import { Text, View, StyleSheet, Button, TextInput } from 'react-native';
-import { Link, useRouter } from 'expo-router';
+import { Link, useFocusEffect, useRouter } from 'expo-router';
 import ListsManager from '../components/ListsManager/ListsManager'; // Import ListsManager
-import { useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 export default function Index() {
   const listManager = ListsManager.getInstance();
   const router = useRouter();
   const inputRef = useRef<TextInput>(null); // Create a ref for TextInput
   let [listNameInput] = useState('');
+  const [lists, setLists] = useState(Array.from(listManager.lists)); // Store lists in state
+
+    // Refresh lists when page is focused
+  useFocusEffect(
+    useCallback(() => {
+      setLists(Array.from(listManager.lists)); // Update state when page is focused
+    }, [listManager])
+  );
+  
 
   return (
     <View style={styles.container}>
       <Text style={styles.header}>My Lists:</Text>
       {
-      Array.from(listManager.lists).map(([id, [list, done]]) => (
-      console.log(id, list, done),
+      lists.map(([id, [list, done]]) => (
       <Link key={id} href={`/list/${id}`} style={styles.text}>
         {list.name} {done ? '✅' : ''}
       </Link>
@@ -31,10 +39,11 @@ export default function Index() {
       title="Create List"
       onPress={() => {
         const listName = listNameInput ?? 'New list';
-        listManager.createList(listName);
+        const listId = listManager.createList(listName);
         inputRef.current?.clear(); // Clear input
         listNameInput = '';
-        router.navigate('/create-new-list')        
+        console.log('listId', listId);
+        router.navigate({ pathname: '/create-new-list', params: { listId } });
       }}
       />
     </View>
