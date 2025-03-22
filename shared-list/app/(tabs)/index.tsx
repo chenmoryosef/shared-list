@@ -23,7 +23,7 @@ export default function Index() {
       <Text style={styles.header}>My Lists:</Text>
       {
       lists.map(([id, [list, done]]) => (
-      <Link key={id} href={`/list/${id}`} style={styles.text}>
+      <Link key={id} href={`/show-list/${id}`} style={styles.text}>
         {list.name} {done ? '✅' : ''}
       </Link>
       ))}
@@ -42,8 +42,7 @@ export default function Index() {
         const listId = listManager.createList(listName);
         inputRef.current?.clear(); // Clear input
         listNameInput = '';
-        console.log('listId', listId);
-        router.navigate({ pathname: '/create-new-list', params: { listId } });
+        router.navigate(`/edit-list/${listId}`);
       }}
       />
     </View>

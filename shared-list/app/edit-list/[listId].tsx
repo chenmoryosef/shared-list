@@ -1,11 +1,11 @@
 import { router, useLocalSearchParams, useNavigation } from 'expo-router';
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, TextInput, Button, FlatList } from 'react-native';
-import ListsManager from './components/ListsManager/ListsManager';
-import Item from './components/Item/Item';
-import { IItem } from './components/Item/IItem';
+import ListsManager from '../components/ListsManager/ListsManager';
+import Item from '../components/Item/Item';
+import { IItem } from '../components/Item/IItem';
 
-export default function EditList() {
+export default function CreateNewList() {
   const { listId } = useLocalSearchParams();
   const parsedListId = Number(listId);
   const listManager = ListsManager.getInstance();
